@@ -6,7 +6,7 @@
     "description": {
         "": "Selects visible bodies from chosen components, orients each on its largest flat face, and arranges them in a non-overlapping grid inside a new 'Flattened Layout' component."
     },
-    "version": "1.0.0",
+    "version": "1.1.0",
     "runOnStartup": true,
     "supportedOS": "windows|mac"
 }

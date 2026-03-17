@@ -14,8 +14,7 @@
 
 - Copies all visible bodies from one or more selected components.
 - Automatically detects the largest planar face on each body and orients it flat.
-- Arranges all bodies in a clean grid with configurable padding.
-- Optionally creates **one flattened component per selected component** (useful when you want to keep parts separated).
+- Arranges all bodies in a clean grid with configurable spacing.
 - Non-destructive — the original components are never modified.
 
 ## Installation
@@ -62,9 +61,27 @@ Once enabled, the **Flatten & Layout** command appears in the **Design** workspa
 
 **Solid** → **Modify** → **Flatten & Layout**
 
+You can also right-click one or more components in the browser tree and select **Flatten & Layout** from the context menu.
+
 1. Select one or more components in your design.
-2. Optionally change the output component name or enable **One component per selection**.
-3. Click **OK**. A new component containing all flattened bodies arranged in a grid will be created in the root component.
+2. Configure the options:
+   - **One component per selection** (on by default) — creates a separate flattened component for each selected component.
+   - **Output component name** — only available when "One component per selection" is off.
+   - **Space between bodies** — gap between individual bodies in the grid (default 10 mm).
+   - **Space between components** — gap between component groups when using per-component mode (default 10 mm).
+3. Click **OK**. New components containing the flattened bodies arranged in a grid will be created under the currently active component.
+
+## Project structure
+
+The add-in is split into several modules:
+
+| File | Responsibility |
+|------|---------------|
+| `Flatten-Layout.py` | Add-in entry point — lifecycle (`run`/`stop`), toolbar & context menu registration |
+| `handlers.py` | Fusion event handler classes (command UI, input changes, execute, context menu) |
+| `commands.py` | Core execute logic — reads inputs, dispatches to single/per-component modes |
+| `geometry.py` | Geometry helpers — body collection, planar face detection, rotation computation |
+| `layout.py` | Layout pipeline — copy & flatten bodies, grid arrangement for bodies and components |
 
 ## License
 
